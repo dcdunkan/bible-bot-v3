@@ -10,7 +10,6 @@
     "dc",
     "dcdunkan"
   ],
-  "success_url": "https://telegram.me/scripturbot",
   "website": "https://t.me/dcbotz",
   "repository": "https://github.com/dcdunkan/bible-bot",
   "env": {
@@ -58,11 +57,6 @@
       "required": false
     },
     "FB_APPID": {
-      "description": "ONLY NEEDED IF `FIREBASE` IS SET TO TRUE. Get this value while creating a firebase app. Read documentation at https://github.com/dcdunkan/pastebin-bot",
-      "value": "",
-      "required": false
-    },
-    "FB_MEASUREMENTID": {
       "description": "ONLY NEEDED IF `FIREBASE` IS SET TO TRUE. Get this value while creating a firebase app. Read documentation at https://github.com/dcdunkan/pastebin-bot",
       "value": "",
       "required": false
