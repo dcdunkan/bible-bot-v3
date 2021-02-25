@@ -2,7 +2,7 @@ require('dotenv').config()
 const config = require('./config')
 // Bot
 const { Telegraf } = require('telegraf')
-const bot = new Telegraf(process.env.BOT_TOKEN)
+const bot = new Telegraf(process.env.BOT_TOKEN, { telegram: { webhookReply: false }})
 const log = console.log;
 
 // Custom helpers
@@ -294,4 +294,9 @@ bot.action(/setd_(.+)/, async (ctx) => {
 })
 
 log('No syntax errors. Running...')
-bot.launch()
+bot.launch({
+  webhook: {
+    domain: process.env.BOT_DOMAIN,
+    port: process.env.PORT
+  }
+})
