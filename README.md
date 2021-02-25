@@ -1,5 +1,5 @@
 #### even though this is a religious(?) bot:
-# in memory of my brother Shamil.
+## in memory of my brother Shamil.
 
 A simple but advanced Bible Bot, which uses getbible.net api to read the whole Bible in 75+ versions inside Telegram. In memory of my brother Shamil ❤️
 
@@ -8,9 +8,10 @@ version 3 of the bible bot. Added a lot of features.
 
 Actually, you can now read the whole Bible inside Telegram in 75+ versions using this bot. It is so damn easy to use the bot. Also, you can change your default version.
 * Uses getbible.net's api service.
-* ***Dependencies***: telegraf, firebase, axios, bible-reference-parser, split-array.
+* **Dependencies**: telegraf, firebase, axios, bible-reference-parser, split-array, dotenv.
 
 ## Deploy
+**Actually, no need for a deploying. But incase if you want to:**
 Simply deploy the application to heroku by clicking the button below. You will need a **telegram bot token** and your **application's subdomain or the domain** you are using. Read below to find how to get all the values.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/dcdunkan/bible-bot)
