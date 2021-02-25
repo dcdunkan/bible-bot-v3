@@ -6,9 +6,10 @@ A simple but advanced Bible Bot, which uses getbible.net api to read the whole B
 # bible-bot v3
 version 3 of the bible bot. Added a lot of features.
 
-Actually, you can now read the whole Bible inside Telegram in 75+ versions using this bot. It is so damn easy to use the bot. Also, you can change your default version.
+Actually, you can now read the whole Bible inside Telegram in 75+ versions using this bot. It is so damn easy to use the bot. Also, you can change your default version. One more thing: request a reference through message. It will reply!
 * Uses getbible.net's api service.
 * **Dependencies**: telegraf, firebase, axios, bible-reference-parser, split-array, dotenv.
+* **Working demo**: [Scripture Bot](https://telegram.me/scripturbot)
 
 ## Deploy
 **Actually, no need for a deploying. But incase if you want to:**
