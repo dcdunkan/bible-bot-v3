@@ -1,0 +1,49 @@
+{
+  "name": "bible-bot-v2",
+  "version": "1.0.0",
+  "description": "A simple Bible bot which can be used to read the whole Bible inside telegram, with 75+ versions in different languages. This is a second version of the old one. Could be useful for someone I believe. An opensource project. Node.js. ★ Star the repo if you like it. Find it over here: https://github.com/dcdunkan/bible-bot",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js",
+    "dev-ax": "nodemon helpers/data-retrieve.js",
+    "dev-fb": "nodemon helpers/firebase.js",
+    "dev-ref": "nodemon helpers/ref-validator.js",
+    "install": "npm install telegraf axios firebase dotenv split-array",
+    "install-dev": "npm install --save-dev nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcdunkan/bible-bot.git"
+  },
+  "keywords": [
+    "bible",
+    "bot",
+    "bible-bot",
+    "dc",
+    "dcdunkan",
+    "node",
+    "getbible.net",
+    "getbible",
+    "api",
+    "telegram-bot",
+    "dcbots"
+  ],
+  "author": "dcdunkan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcdunkan/bible-bot/issues"
+  },
+  "homepage": "https://github.com/dcdunkan/bible-bot#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bible-reference-parser": "^3.0.1",
+    "dotenv": "^8.2.0",
+    "firebase": "^8.2.9",
+    "split-array": "^1.0.1",
+    "telegraf": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
