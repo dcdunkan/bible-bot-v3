@@ -225,7 +225,7 @@ bot.on('text', (ctx) => {
     if(bookdetail.status){
       var keyboard = []
       if(bookdetail.verses == 'ALL'){
-        keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }, { text: 'KJV', callback_data: `chapter_kjv_${bookdetail.nr}_${bookdetail.chapter}_0` }], [{ text: 'ASV', callback_data: `chapter_asv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]]
+        keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }, { text: 'KJV', callback_data: `chapter_kjv_${bookdetail.nr}_${bookdetail.chapter}_0` }], [{ text: 'ASV', callback_data: `chapter_asv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]
         ctx.reply(`Choose a version to get the requested passage: *${ctx.message.text}*`,
           { parse_mode: 'Markdown', reply_markup: { inline_keyboard: keyboard } }
         )
