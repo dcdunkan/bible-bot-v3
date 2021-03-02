@@ -237,7 +237,7 @@ bot.on('text', (ctx) => {
         } else {
           part = Math.floor(parseInt(bookdetail.verses[0])/10)
         }
-        keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_${part}` }]]
+        keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }, { text: 'KJV', callback_data: `chapter_kjv_${bookdetail.nr}_${bookdetail.chapter}_0` }], [{ text: 'ASV', callback_data: `chapter_asv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]
         ctx.reply(`Choose a version to get the requested passage: *${ctx.message.text}*`,
           { parse_mode: 'Markdown', reply_markup: { inline_keyboard: keyboard } }
         )
