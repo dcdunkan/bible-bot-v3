@@ -179,7 +179,6 @@ bot.action(/chapter_(.+)/, (ctx) => {
 })
 
 bot.on('text', (ctx) => {
-  log(ctx.chat)
   if(ctx.chat.type == 'private'){
     getDefault(ctx.chat.id)
     .then((def) => {
