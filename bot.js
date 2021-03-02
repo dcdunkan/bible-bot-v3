@@ -16,7 +16,9 @@ const { writeIfNotExist, getDefault, updateDefault } = require('./helpers/fireba
 // Basic commands and actions
 bot.start((ctx) => {
   ctx.reply(config.bot.start.msg, config.bot.start.opts)
-  writeIfNotExist('users', ctx.chat.id, { uid: ctx.chat.id, username: ctx.chat.username, def: 'akjv' })
+  if(ctx.chat.type == 'private'){
+    writeIfNotExist('users', ctx.chat.id, { uid: ctx.chat.id, username: ctx.chat.username, def: 'akjv' })
+  }
 })
 bot.action('home', (ctx) => {
   ctx.editMessageText(config.bot.start.msg, config.bot.start.opts)
@@ -177,17 +179,53 @@ bot.action(/chapter_(.+)/, (ctx) => {
 })
 
 bot.on('text', (ctx) => {
-  getDefault(ctx.chat.id)
-  .then((def) => {
+  if(ctx.chat.type == 'private'){
+    getDefault(ctx.chat.id)
+    .then((def) => {
+      const bookdetail = getBookDetails(ctx.message.text)
+      if(bookdetail.status){
+        var keyboard = []
+        if(bookdetail.verses == 'ALL'){
+          if(def == 'akjv'){
+            keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]
+          } else {
+            keyboard = [[{ text: def.toUpperCase(), callback_data: `chapter_${def}_${bookdetail.nr}_${bookdetail.chapter}_0` }, { text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]
+          }
+          ctx.reply(`Choose a version to get the requested passage: *${ctx.message.text}*`,
+            { parse_mode: 'Markdown', reply_markup: { inline_keyboard: keyboard } }
+          )
+        } else {
+          var part;
+          if((bookdetail.verses[0] % 10) == 0){
+            part = Math.floor( (parseInt(bookdetail.verses[0]) / 10) - 1)
+          } else {
+            part = Math.floor(parseInt(bookdetail.verses[0])/10)
+          }
+          if(def == 'akjv'){
+            keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_${part}` }]]
+          } else {
+            keyboard = [[{ text: def.toUpperCase(), callback_data: `chapter_${def}_${bookdetail.nr}_${bookdetail.chapter}_${part}` }, { text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_${part}` }]]
+          }
+          ctx.reply(`Choose a version to get the requested passage: *${ctx.message.text}*`,
+            { parse_mode: 'Markdown', reply_markup: { inline_keyboard: keyboard } }
+          )
+        }
+      } else {
+        ctx.reply('🤕 Sorry. The reference you entered is not valid as per our system. Please click the button below and find what are the valid book names.',
+          { reply_markup: { inline_keyboard: [[{ text: 'Valid References', callback_data: 'valid_0' }]] } }
+        )
+      }    
+    })
+    .catch((err) => {
+      ctx.reply(config.bot.errors.text)
+      console.log(err)
+    })
+  } else {
     const bookdetail = getBookDetails(ctx.message.text)
     if(bookdetail.status){
       var keyboard = []
       if(bookdetail.verses == 'ALL'){
-        if(def == 'akjv'){
-          keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]
-        } else {
-          keyboard = [[{ text: def.toUpperCase(), callback_data: `chapter_${def}_${bookdetail.nr}_${bookdetail.chapter}_0` }, { text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]
-        }
+        keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_0` }, { text: 'KJV', callback_data: `chapter_kjv_${bookdetail.nr}_${bookdetail.chapter}_0` }], [{ text: 'ASV', callback_data: `chapter_asv_${bookdetail.nr}_${bookdetail.chapter}_0` }]]]
         ctx.reply(`Choose a version to get the requested passage: *${ctx.message.text}*`,
           { parse_mode: 'Markdown', reply_markup: { inline_keyboard: keyboard } }
         )
@@ -198,11 +236,7 @@ bot.on('text', (ctx) => {
         } else {
           part = Math.floor(parseInt(bookdetail.verses[0])/10)
         }
-        if(def == 'akjv'){
-          keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_${part}` }]]
-        } else {
-          keyboard = [[{ text: def.toUpperCase(), callback_data: `chapter_${def}_${bookdetail.nr}_${bookdetail.chapter}_${part}` }, { text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_${part}` }]]
-        }
+        keyboard = [[{ text: 'AKJV', callback_data: `chapter_akjv_${bookdetail.nr}_${bookdetail.chapter}_${part}` }]]
         ctx.reply(`Choose a version to get the requested passage: *${ctx.message.text}*`,
           { parse_mode: 'Markdown', reply_markup: { inline_keyboard: keyboard } }
         )
@@ -211,12 +245,8 @@ bot.on('text', (ctx) => {
       ctx.reply('🤕 Sorry. The reference you entered is not valid as per our system. Please click the button below and find what are the valid book names.',
         { reply_markup: { inline_keyboard: [[{ text: 'Valid References', callback_data: 'valid_0' }]] } }
       )
-    }    
-  })
-  .catch((err) => {
-    ctx.reply(config.bot.errors.text)
-    console.log(err)
-  })
+    }
+  }
 })
 
 bot.action(/valid_(.+)/, (ctx) => {
