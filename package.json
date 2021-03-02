@@ -9,7 +9,6 @@
     "dev-ax": "nodemon helpers/data-retrieve.js",
     "dev-fb": "nodemon helpers/firebase.js",
     "dev-ref": "nodemon helpers/ref-validator.js",
-    "install": "npm install telegraf axios firebase dotenv split-array",
     "install-dev": "npm install --save-dev nodemon"
   },
   "repository": {
