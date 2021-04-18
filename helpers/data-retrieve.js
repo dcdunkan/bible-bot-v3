@@ -20,9 +20,17 @@ async function getTranslations(page){
     while(i < langarray.length){
       const version = langarray[i].abbreviation
       const lang = langarray[i].language
-      const version1 = langarray[i+1].abbreviation
-      const lang1 = langarray[i+1].language
-      keyboard.push([{ text: `${lang}: ${version.toUpperCase()}`, callback_data: `lang_${version}_0_0` }, { text: `${lang1}: ${version1.toUpperCase()}`, callback_data: `lang_${version1}` }])
+      let version1, lang1;
+      if(langarray[i+1] !== undefined){
+        version1 = langarray[i+1].abbreviation
+        lang1 = langarray[i+1].language
+        keyboard.push([{ text: `${lang}: ${version.toUpperCase()}`, callback_data: `lang_${version}_0_0` }, { text: `${lang1}: ${version1.toUpperCase()}`, callback_data: `lang_${version1}_0_0` }])
+      } else keyboard.push([{ text: `${lang}: ${version.toUpperCase()}`, callback_data: `lang_${version}_0_0` }])
+
+      // const version1 = langarray[i+1].abbreviation
+      // const lang1 = langarray[i+1].language
+      // keyboard.push([{ text: `${lang}: ${version.toUpperCase()}`, callback_data: `lang_${version}_0_0` }, { text: `${lang1}: ${version1.toUpperCase()}`, callback_data: `lang_${version1}` }])
+
       i = i + 2;
     }
     keyboard = await splitArray(keyboard, 10)[page]
@@ -281,9 +289,12 @@ async function getTranslationsDefault(page){
     while(i < langarray.length){
       const version = langarray[i].abbreviation
       const lang = langarray[i].language
-      const version1 = langarray[i+1].abbreviation
-      const lang1 = langarray[i+1].language
-      keyboard.push([{ text: `${lang}: ${version.toUpperCase()}`, callback_data: `setd_${version}` }, { text: `${lang1}: ${version1.toUpperCase()}`, callback_data: `setd_${version1}` }])
+      let version1, lang1;
+      if(langarray[i+1] !== undefined){
+        version1 = langarray[i+1].abbreviation
+        lang1 = langarray[i+1].language
+        keyboard.push([{ text: `${lang}: ${version.toUpperCase()}`, callback_data: `setd_${version}` }, { text: `${lang1}: ${version1.toUpperCase()}`, callback_data: `setd_${version1}` }])
+      } else keyboard.push([{ text: `${lang}: ${version.toUpperCase()}`, callback_data: `setd_${version}` }])
       i = i + 2;
     }
     keyboard = await splitArray(keyboard, 10)[page]
