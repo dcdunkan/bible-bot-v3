@@ -4,7 +4,6 @@ const config = require('./config')
 const { Telegraf } = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN, { telegram: { webhookReply: false }})
 const log = console.log;
-
 // Custom helpers
 const { getTranslations, getBooks, getChapters, getVerses, getTranslationsDefault } = require('./helpers/data-retrieve')
 const { getBookDetails } = require('./helpers/ref-validator')  // Not a perfect validator. But it do the job in good way.
@@ -16,15 +15,11 @@ const { writeIfNotExist, getDefault, updateDefault } = require('./helpers/fireba
 // Basic commands and actions
 bot.start((ctx) => {
   ctx.reply(config.bot.start.msg, config.bot.start.opts)
-  writeIfNotExist('users', ctx.chat.id, { uid: ctx.chat.id, username: ctx.chat.username, def: 'akjv' })
+  writeIfNotExist('users', ctx.chat.id, { uid: ctx.chat.id, username: "blob" || ctx.chat.username, def: 'akjv' })
 })
-bot.action('home', (ctx) => {
-  ctx.editMessageText(config.bot.start.msg, config.bot.start.opts)
-})
+bot.action('home', (ctx) => ctx.editMessageText(config.bot.start.msg, config.bot.start.opts))
 
-bot.help((ctx) => {
-  ctx.reply(config.bot.help.msg, config.bot.help.opts)
-})
+bot.help((ctx) => ctx.reply(config.bot.help.msg, config.bot.help.opts))
 bot.action([/help_(.+)/, 'help'], (ctx) => {
   if(ctx.match[1] !== undefined){
     ctx.editMessageText(config.bot.help.msg,
@@ -35,12 +30,8 @@ bot.action([/help_(.+)/, 'help'], (ctx) => {
   }
 })
 
-bot.command('about', (ctx) => {
-  ctx.reply(config.bot.about.msg, config.bot.about.opts)
-})
-bot.action('about', (ctx) => {
-  ctx.editMessageText(config.bot.about.msg, config.bot.about.opts)
-})
+bot.command('about', (ctx) => ctx.reply(config.bot.about.msg, config.bot.about.opts))
+bot.action('about', (ctx) => ctx.editMessageText(config.bot.about.msg, config.bot.about.opts))
 
 bot.command('read', async (ctx) => {
   getTranslations(1)
