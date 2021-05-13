@@ -15,7 +15,7 @@ const { writeIfNotExist, getDefault, updateDefault } = require('./helpers/fireba
 // Basic commands and actions
 bot.start((ctx) => {
   ctx.reply(config.bot.start.msg, config.bot.start.opts)
-  writeIfNotExist('users', ctx.chat.id, { uid: ctx.chat.id, username: "blob" || ctx.chat.username, def: 'akjv' })
+  writeIfNotExist('users', ctx.chat.id, { uid: ctx.chat.id, username: ctx.chat.username || "blob", def: 'akjv' })
 })
 bot.action('home', (ctx) => ctx.editMessageText(config.bot.start.msg, config.bot.start.opts))
 
