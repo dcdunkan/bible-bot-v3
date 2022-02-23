@@ -1,3 +1,9 @@
+# _!! NO LONGER MAINTAINED !!_
+
+### See [dcdunkan/bible-bot](https://github.com/dcdunkan/bible-bot) for the Updated Version.
+
+---
+
 #### even though this is a religious(?) bot:
 ## in memory of my brother Shamil.
 
